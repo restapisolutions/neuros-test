@@ -1,46 +1,36 @@
-# Getting Started with Create React App
+# Use
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+I'm using NPM.
 
-## Available Scripts
+Install dependencies 
+`npm install`
 
-In the project directory, you can run:
+Run tests
+`npm run test`
 
-### `yarn start`
+Run the App
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+`npm run start`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+build the app
 
-### `yarn test`
+`npm run build`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The config could be ejected but it's not recommended.
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Dev notes
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+This App implements the specification at https://github.com/Neurons-inc/Neurons-Frontend-test 
+with create-react-app because using the manual setup, babel was compiling <button onClick={()=>{}}></button> onClick as props instead of an event emitter.
+I was using the latest versions of Babel and the cause could be the dependencies. Dependencies need to be pinned to a specific version and they only work with a specific combination. The last documentation on React's website about manual setup is from 2018 with pinned dependencies that instantly break with newer ones.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+As you can see with this setup,"react-scripts": "4.0.3" , these dependencies need to be pinned and used without a caret ^ symbol otherwise it's a liability.
 
-### `yarn eject`
+## State management
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Because this is a really simple application, I just keep all state in the top component and pass it like props. 
+There should be no updateable state in the components lower in the tree cuz that makes the code more complex.
+All the state setters and the state itself will be passed down and come from the same place
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+For a bigger application, I would use Redux , maybe with Async thunk but for this application, that is out of scope.

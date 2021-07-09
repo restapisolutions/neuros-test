@@ -1,25 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { getTvShowAndCastData } from "./api/Api";
+import Layout from "./components/Layout";
+
+//For convenience I will store all state and stateSetters in the top component
 
 function App() {
+  const [tvShowAndCastData, setTvShowAndCastData] = useState({});
+  const [buttonActive, setButtonActive] = useState(0);
+  
+  useEffect(() => {
+    getTvShowAndCastData().then((res: any) => {
+      // setTvShowAndCastData(res);
+    });
+  }, []);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout
+      tvShowAndCastData={tvShowAndCastData}
+      buttonActive={buttonActive}
+      setButtonActive={setButtonActive}
+    ></Layout>
   );
 }
 
