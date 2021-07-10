@@ -1,16 +1,14 @@
-//Implementing the Api endpoints from the docs
-
+// Implementing the Api endpoints from the docs
+// I'm storing the string here which is not good practice but for the demo it's okay. 
 const TVSHOWANDCASTDATA = "https://api.tvmaze.com/shows/143?embed=cast";
 const TVSHOWEPISODES = " https://api.tvmaze.com/shows/143/episodes?specials=1";
 
 export async function getTvShowAndCastData() {
   const res = await fetch(TVSHOWANDCASTDATA);
-  console.log(res)
-  return res.json;
+  return await res.json();
 }
 
 export async function getTvShowEpisodes() {
   const res = await fetch(TVSHOWEPISODES);	
-  console.log(res)
-  return res.json;
+  return res.json();
 }
