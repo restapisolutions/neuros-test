@@ -34,3 +34,15 @@ There should be no updateable state in the components lower in the tree cuz that
 All the state setters and the state itself will be passed down and come from the same place
 
 For a bigger application, I would use Redux , maybe with Async thunk but for this application, that is out of scope.
+
+## Styles
+
+I decided to use styled componentes for this and mostly flex box for arranging things.
+All the dimensions of the elements,colors are copied from the CSS on Figma.
+
+
+
+### Notes:
+The seach bar icon was exported from figma as a png, it doesn't seem as high quality as in figma. 
+
+The filtering text has the same css as figma, yet it looks a little different
