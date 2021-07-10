@@ -1,3 +1,38 @@
+# Questionnarie
+
+`What is your preferred reactjs stack today for building a modern SaaS application? What libraries and frameworks would be incl. And why?`
+
+It really depends on the use case, for an SPA I would choose react with Redux and styled components, much like this app.
+For applications where the SEO is important I would go with Next.js. I`m a full stack dev and I think it's great that I can have my back end and front end in the same project. 
+
+Redux is nice. I like to keep all the state in the same place.
+
+`How would you approach an application where multiple products and multiple teams working across the application?`
+
+There is a joke that a job with 1 dev that takes 1 month will take 2 months with 2 devs because of the meetings.
+I like consensus and I'm open to others opinions and what matters is to do it right. In a case when multiple teams work on the same product, full coverage in tests is super important, to not break other people's work.
+A specification is also important to overview what needs to be done and understand how the code should work.
+
+`Design / UI Component system, How would you deal with that? Build one, use a framework (e.g Ant, Materiale UI etc. ) and why your approach?`
+
+I prefer to use an already existing framework if the project has a steep deadline. As I come from a fullstack background, I usually do the backend, front end and then writing a framework for UI/Components can be a bit too much.
+
+If I write a Design/UI framework, I prefer to create a separate library and import it afterwards to divide the project.
+
+`How to ensure good quality and high performance code?`
+
+I like simple things. Code should not be over complicated, the most simple approach is usually the best and most performant.
+Generally I prefer to not do too much fancy stuff and a cohesive specification also helps. It's nice to have a spec before and as we iterate on the code, the spec can be adjusted.
+Documentation is also super important, sometimes people think a Spec and a Doc is the same, but they are not. 
+
+
+`Why is testing important, how would you embed it in a team and with what tools?`
+
+Without tests I don't know if the code works. 
+Tests also help a lot with refactoring. It's important to get instant feedback about the integrity of the code during refactoring and any future changes can break stuff. I cannot keep everything in my mind, so tests are important to give me confidence that my code does work.
+
+I use CI/CD a lot like  Google Cloud Build, Jenkins and platforms like CircleCi and it's great for teamwork cuz after I push I can see I didn't break the tests the other worker created so we can comfortably work together without sever conflicts in code.
+
 # Use
 
 I'm using NPM.
