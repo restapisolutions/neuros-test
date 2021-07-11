@@ -57,7 +57,13 @@ The config could be ejected but it's not recommended.
 # Dev notes
 
 This App implements the specification at https://github.com/Neurons-inc/Neurons-Frontend-test 
-with create-react-app because using the manual setup, babel was compiling <button onClick={()=>{}}></button> onClick as props instead of an event emitter.
+
+It's running here : https://neuros-react.vercel.app/
+
+Created with create-react-app because using the manual setup, babel was compiling <button onClick={()=>{}}></button> onClick as props instead of an event emitter.
+Here is the github repo for the bug, you can see my typecript, jest, webpack and babel config. It works without errors.
+https://github.com/restapisolutions/babel-bug-reproduction
+
 I was using the latest versions of Babel and the cause could be the dependencies. Dependencies need to be pinned to a specific version and they only work with a specific combination. The last documentation on React's website about manual setup is from 2018 with pinned dependencies that instantly break with newer ones.
 
 As you can see with this setup,"react-scripts": "4.0.3" , these dependencies need to be pinned and used without a caret ^ symbol otherwise it's a liability.
@@ -82,7 +88,10 @@ All the dimensions of the elements,colors are copied from the CSS on Figma.
 
 2. The cast is missing the gender icons, they looked weird on the top of the images and then I left them off
 
+3. Episodes filtering menu and functionality. It was not specified what to filter for and I would just repeat a simmilar coding pattern like for the cast filter so I think you guys get the point!
 
 
 ## Bonus:
 The UI is tabbable and can be used with a keyboard only.
+
+A test in App.test.tsx to show the pattern of how I test the UI. 
