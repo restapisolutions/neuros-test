@@ -1,11 +1,16 @@
 import React from "react";
 import styled from "styled-components";
+import { Country, Gender, Alive } from "../App";
 type FilteringButtonProps = {
   pressed: boolean;
 };
 
 type FilteringPopupProps = {
   visible: boolean;
+};
+
+type CheckboxProps = {
+  selected: boolean;
 };
 
 // This is the row containing the search bar and the filtering button
@@ -110,6 +115,7 @@ const FilterSettings = styled.div`
 const CountryFilterBox = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: -10px;
 `;
 
 const FilterTitle = styled.p`
@@ -123,14 +129,14 @@ const FilterTitle = styled.p`
   margin-bottom: 6px;
 `;
 
-const CheckBox = styled.div`
+const CheckBox = styled.div<CheckboxProps>`
   text-align: right;
-  background-color: #c4c4c4;
-  background: #c4c4c4;
+  background: ${(props) => (props.selected ? "#189279" : "#c4c4c4")};
   width: 14px;
   height: 14px;
   margin-left: 20px;
   margin-right: 5px;
+  cursor: pointer;
 `;
 
 const CheckboxLabel = styled.label`
@@ -153,6 +159,18 @@ const GenderRow = styled.div`
   flex-direction: row;
   justify-content: flex-start;
 `;
+
+const GenderTitle = styled.p`
+  font-family: IBM Plex Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 140%;
+  margin-top: 32px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+`;
+
 const GenderButtonColumns = styled.div`
   display: flex;
   flex-direction: column;
@@ -160,9 +178,11 @@ const GenderButtonColumns = styled.div`
   margin-right: 20px;
 `;
 
-const GenderIconButton = styled.img`
+const GenderIconButton = styled.img<CheckboxProps>`
   width: 20px;
   height: 20px;
+  cursor: pointer;
+  opacity: ${(props) => (props.selected ? "1" : "0.3")};
 `;
 const GenderIconLabel = styled.p`
   font-family: IBM Plex Sans;
@@ -170,11 +190,13 @@ const GenderIconLabel = styled.p`
   font-weight: normal;
   font-size: 12px;
   line-height: 140%;
+  margin-left: -3px;
 `;
 
 const AliveBox = styled.div`
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 `;
 
 const AliveTitle = styled.p`
@@ -195,7 +217,7 @@ const Column = styled.div`
 const BirthdayText = styled.p`
   font-family: IBM Plex Sans;
   font-style: normal;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 140%;
   margin-top: 20px;
   margin-left: 24px;
@@ -207,10 +229,12 @@ const YearInput = styled.input`
   height: 32px;
   margin-left: 24px;
   margin-right: 36px;
-  border: 1px solid #C4C4C4;
+  border: 1px solid #c4c4c4;
   &:focus {
     outline: none;
   }
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
 `;
 
 const UpdateButton = styled.div`
@@ -231,8 +255,56 @@ const UpdateButton = styled.div`
   color: white;
   text-align: center;
   padding-top: 6px;
-`
+  cursor: pointer;
+`;
 export default function SearchRow(props: any) {
+  const filteringButtonPress = () => {
+    props.setFilteringButtonPressed(!props.filteringButtonPressed);
+  };
+
+  const setCountry = (to: Country) => {
+    if (props.castFilter.country === to) {
+      // If this is already selected, I turn it off
+      props.setCastFilter({ ...props.castFilter, country: Country.None });
+    } else {
+      props.setCastFilter({ ...props.castFilter, country: to });
+    }
+  };
+
+  const setGender = (to: Gender) => {
+    if (props.castFilter.gender === to) {
+      props.setCastFilter({ ...props.castFilter, gender: Gender.None });
+    } else {
+      props.setCastFilter({ ...props.castFilter, gender: to });
+    }
+  };
+
+  const setAlive = (to: Alive) => {
+    if (props.castFilter.alive === to) {
+      props.setCastFilter({ ...props.castFilter, alive: Alive.None });
+    } else {
+      props.setCastFilter({ ...props.castFilter, alive: to });
+    }
+  };
+
+  const setBirthday = (event: React.FormEvent<HTMLInputElement>) => {
+    props.setCastFilter({
+      ...props.castFilter,
+      birthday: event.currentTarget.value,
+    });
+  };
+
+  const getSelectedCountry = (current: Country) => {
+    return current === props.castFilter.country;
+  };
+
+  const getSelectedGender = (current: Gender) => {
+    return current === props.castFilter.gender;
+  };
+  const getSelectedAlive = (current: Alive) => {
+    return current === props.castFilter.alive;
+  };
+
   return (
     <React.Fragment>
       <Row>
@@ -243,9 +315,7 @@ export default function SearchRow(props: any) {
         <FilterContainer>
           <FilteringButton
             pressed={props.filteringButtonPressed}
-            onClick={() =>
-              props.setFilteringButtonPressed(!props.filteringButtonPressed)
-            }
+            onClick={filteringButtonPress}
           >
             <FilteringLogo src="/filteringIcon.png"></FilteringLogo>
             <FilteringLabel>Filtering</FilteringLabel>
@@ -258,32 +328,58 @@ export default function SearchRow(props: any) {
           <CountryFilterBox>
             <FilterTitle>Country</FilterTitle>
             <CheckBoxRow>
-              <CheckBox id="country1"></CheckBox>
+              <CheckBox
+                onClick={() => setCountry(Country.Canada)}
+                selected={getSelectedCountry(Country.Canada)}
+                id="country1"
+              ></CheckBox>
               <CheckboxLabel htmlFor="country1">Canada</CheckboxLabel>
             </CheckBoxRow>
             <CheckBoxRow>
-              <CheckBox id="country2"></CheckBox>
+              <CheckBox
+                id="country2"
+                onClick={() => setCountry(Country.US)}
+                selected={getSelectedCountry(Country.US)}
+              ></CheckBox>
               <CheckboxLabel htmlFor="country2">United states</CheckboxLabel>
             </CheckBoxRow>
             <CheckBoxRow>
-              <CheckBox id="country3"></CheckBox>
+              <CheckBox
+                selected={getSelectedCountry(Country.HongKong)}
+                id="country3"
+                onClick={() => setCountry(Country.HongKong)}
+              ></CheckBox>
               <CheckboxLabel htmlFor="country3">Hong Kong</CheckboxLabel>
             </CheckBoxRow>
             <CheckBoxRow>
-              <CheckBox id="country4"></CheckBox>
+              <CheckBox
+                selected={getSelectedCountry(Country.Pakistan)}
+                id="country4"
+                onClick={() => setCountry(Country.Pakistan)}
+              ></CheckBox>
               <CheckboxLabel htmlFor="country4">Pakistan</CheckboxLabel>
             </CheckBoxRow>
           </CountryFilterBox>
 
           <Column>
-            <FilterTitle>Gender</FilterTitle>
+            <GenderTitle>Gender</GenderTitle>
             <GenderRow>
               <GenderButtonColumns>
-                <GenderIconButton alt="male" src="/face.svg" />
+                <GenderIconButton
+                  onClick={() => setGender(Gender.Male)}
+                  selected={getSelectedGender(Gender.Male)}
+                  alt="male"
+                  src="/face.svg"
+                />
                 <GenderIconLabel>Male</GenderIconLabel>
               </GenderButtonColumns>
               <GenderButtonColumns>
-                <GenderIconButton alt="male" src="/face_unlock.svg" />
+                <GenderIconButton
+                  onClick={() => setGender(Gender.Female)}
+                  selected={getSelectedGender(Gender.Female)}
+                  alt="female"
+                  src="/face_unlock.svg"
+                />
                 <GenderIconLabel>Female</GenderIconLabel>
               </GenderButtonColumns>
             </GenderRow>
@@ -292,9 +388,17 @@ export default function SearchRow(props: any) {
             <Column>
               <AliveTitle>Alive</AliveTitle>
               <CheckBoxRow>
-                <CheckBox id="aliveChechbox-yes"></CheckBox>
+                <CheckBox
+                  onClick={() => setAlive(Alive.Yes)}
+                  selected={getSelectedAlive(Alive.Yes)}
+                  id="aliveChechbox-yes"
+                ></CheckBox>
                 <CheckboxLabel>Yes</CheckboxLabel>
-                <CheckBox id="aliveChechbox-no"></CheckBox>
+                <CheckBox
+                  onClick={() => setAlive(Alive.No)}
+                  selected={getSelectedAlive(Alive.No)}
+                  id="aliveChechbox-no"
+                ></CheckBox>
                 <CheckboxLabel>No</CheckboxLabel>
               </CheckBoxRow>
             </Column>
@@ -303,10 +407,14 @@ export default function SearchRow(props: any) {
             <BirthdayText>
               <b>Birthday</b> (born before year)
             </BirthdayText>
-            <YearInput placeholder="1981"></YearInput>
+            <YearInput
+              type="number"
+              value={props.castFilter.birthday}
+              onChange={setBirthday}
+              placeholder="1981"
+            ></YearInput>
           </Column>
-
-          <UpdateButton>Update</UpdateButton>
+          <UpdateButton onClick={props.applyCastFilter}>Update</UpdateButton>
         </FilterSettings>
       </FilterPopup>
     </React.Fragment>
