@@ -29,8 +29,9 @@ function App() {
   const [tvShowEpisodes, setTvShowEpisodes] = useState({});
   const [buttonActive, setButtonActive] = useState(0);
   const [filteringButtonPressed, setFilteringButtonPressed] = useState(false);
-
+  
   const [castFilter, setCastFilter] = useState({
+    search: "",
     country: Country.None,
     gender: Gender.Male,
     alive: Alive.Yes,
@@ -41,7 +42,6 @@ function App() {
 
   const applyCastFilter = () => {
     setAppliedCastFilter(castFilter);
-     setFilteringButtonPressed(!filteringButtonPressed)
   };
 
   useEffect(() => {

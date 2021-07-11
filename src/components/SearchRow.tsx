@@ -262,6 +262,11 @@ export default function SearchRow(props: any) {
     props.setFilteringButtonPressed(!props.filteringButtonPressed);
   };
 
+  const updatePress = () => {
+    props.applyCastFilter();
+    filteringButtonPress();
+  };
+
   const setCountry = (to: Country) => {
     if (props.castFilter.country === to) {
       // If this is already selected, I turn it off
@@ -294,6 +299,13 @@ export default function SearchRow(props: any) {
     });
   };
 
+  const search = (event: React.FormEvent<HTMLInputElement>) => {
+    props.setCastFilter({
+      ...props.castFilter,
+      search: event.currentTarget.value,
+    });
+  };
+
   const getSelectedCountry = (current: Country) => {
     return current === props.castFilter.country;
   };
@@ -305,12 +317,61 @@ export default function SearchRow(props: any) {
     return current === props.castFilter.alive;
   };
 
+  // The filter ui is tabbable and can be used with keyboard only, which is great for accessability
+  const handleEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      props.applyCastFilter();
+    }
+  };
+
+  const handleDivEnters = (
+    event: React.KeyboardEvent<HTMLDivElement>,
+    name: string
+  ) => {
+    if (event.key === "Enter") {
+      switch (name) {
+        case Country.Canada:
+          setCountry(Country.Canada);
+          break;
+        case Country.US:
+          setCountry(Country.US);
+          break;
+        case Country.HongKong:
+          setCountry(Country.HongKong);
+          break;
+        case Country.Pakistan:
+          setCountry(Country.Pakistan);
+          break;
+        case Gender.Male:
+          setGender(Gender.Male);
+          break;
+        case Gender.Female:
+          setGender(Gender.Female);
+          break;
+        case Alive.Yes:
+          setAlive(Alive.Yes);
+          break;
+        case Alive.No:
+          setAlive(Alive.No);
+          break;
+        default:
+          break;
+      }
+    }
+  };
+
   return (
     <React.Fragment>
       <Row>
         <InputContainer>
           <LogoPlaceHolder src="/searchIcon.svg" />
-          <Input placeholder={"Search for cast members"} id="search-input" />
+          <Input
+            onChange={search}
+            onKeyDown={handleEnter}
+            value={props.castFilter.search}
+            placeholder={"Search for cast members"}
+            id="search-input"
+          />
         </InputContainer>
         <FilterContainer>
           <FilteringButton
@@ -329,6 +390,8 @@ export default function SearchRow(props: any) {
             <FilterTitle>Country</FilterTitle>
             <CheckBoxRow>
               <CheckBox
+                tabIndex={0}
+                onKeyDown={(e) => handleDivEnters(e, Country.Canada)}
                 onClick={() => setCountry(Country.Canada)}
                 selected={getSelectedCountry(Country.Canada)}
                 id="country1"
@@ -337,7 +400,9 @@ export default function SearchRow(props: any) {
             </CheckBoxRow>
             <CheckBoxRow>
               <CheckBox
+                tabIndex={0}
                 id="country2"
+                onKeyDown={(e) => handleDivEnters(e, Country.US)}
                 onClick={() => setCountry(Country.US)}
                 selected={getSelectedCountry(Country.US)}
               ></CheckBox>
@@ -345,6 +410,8 @@ export default function SearchRow(props: any) {
             </CheckBoxRow>
             <CheckBoxRow>
               <CheckBox
+                tabIndex={0}
+                onKeyDown={(e) => handleDivEnters(e, Country.HongKong)}
                 selected={getSelectedCountry(Country.HongKong)}
                 id="country3"
                 onClick={() => setCountry(Country.HongKong)}
@@ -353,6 +420,8 @@ export default function SearchRow(props: any) {
             </CheckBoxRow>
             <CheckBoxRow>
               <CheckBox
+                tabIndex={0}
+                onKeyDown={(e) => handleDivEnters(e, Country.Pakistan)}
                 selected={getSelectedCountry(Country.Pakistan)}
                 id="country4"
                 onClick={() => setCountry(Country.Pakistan)}
@@ -366,6 +435,8 @@ export default function SearchRow(props: any) {
             <GenderRow>
               <GenderButtonColumns>
                 <GenderIconButton
+                  tabIndex={0}
+                  onKeyDown={(e) => handleDivEnters(e, Gender.Male)}
                   onClick={() => setGender(Gender.Male)}
                   selected={getSelectedGender(Gender.Male)}
                   alt="male"
@@ -375,6 +446,8 @@ export default function SearchRow(props: any) {
               </GenderButtonColumns>
               <GenderButtonColumns>
                 <GenderIconButton
+                  tabIndex={0}
+                  onKeyDown={(e) => handleDivEnters(e, Gender.Female)}
                   onClick={() => setGender(Gender.Female)}
                   selected={getSelectedGender(Gender.Female)}
                   alt="female"
@@ -389,12 +462,16 @@ export default function SearchRow(props: any) {
               <AliveTitle>Alive</AliveTitle>
               <CheckBoxRow>
                 <CheckBox
+                  tabIndex={0}
+                  onKeyDown={(e) => handleDivEnters(e, Alive.Yes)}
                   onClick={() => setAlive(Alive.Yes)}
                   selected={getSelectedAlive(Alive.Yes)}
                   id="aliveChechbox-yes"
                 ></CheckBox>
                 <CheckboxLabel>Yes</CheckboxLabel>
                 <CheckBox
+                  tabIndex={0}
+                  onKeyDown={(e) => handleDivEnters(e, Alive.No)}
                   onClick={() => setAlive(Alive.No)}
                   selected={getSelectedAlive(Alive.No)}
                   id="aliveChechbox-no"
@@ -414,7 +491,13 @@ export default function SearchRow(props: any) {
               placeholder="1981"
             ></YearInput>
           </Column>
-          <UpdateButton onClick={props.applyCastFilter}>Update</UpdateButton>
+          <UpdateButton
+            onKeyDown={handleEnter}
+            tabIndex={0}
+            onClick={updatePress}
+          >
+            Update
+          </UpdateButton>
         </FilterSettings>
       </FilterPopup>
     </React.Fragment>

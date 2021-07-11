@@ -7,6 +7,7 @@ export function filterCastData(
     alive: Alive;
     gender: Gender;
     birthday: number | string;
+    search: string;
   }
 ) {
   if (data !== undefined && data._embedded !== undefined) {
@@ -16,6 +17,7 @@ export function filterCastData(
     filteredData = filterGender(params.gender, filteredData);
     filteredData = filterAlive(params.alive, filteredData);
     filteredData = filterBirthday(params.birthday, filteredData);
+    filteredData = filterSearch(params.search, filteredData);
     return filteredData;
   } else {
     return [];
@@ -72,6 +74,21 @@ function filterBirthday(birthday: number | string, cast: any) {
     for (let i = 0; i < cast.length; i++) {
       const castBirth = new Date(cast[i].person.birthday).getTime();
       if (castBirth < birthTime) {
+        filteredData.push(cast[i]);
+      }
+    }
+    return filteredData;
+  } else {
+    return cast;
+  }
+}
+
+function filterSearch(search: string, cast: any) {
+  if (search !== "") {
+    let filteredData = [];
+    for (let i = 0; i < cast.length; i++) {
+      const name = cast[i].person.name;
+      if (name.includes(search)) {
         filteredData.push(cast[i]);
       }
     }
