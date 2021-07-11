@@ -15,9 +15,8 @@ const CastContainer = styled.div`
 
 export default function CastLayout(props: any) {
   function getCards() {
-    const data = props.tvShowAndCastData;
-    if (data !== undefined && data._embedded !== undefined) {
-      const cast = data._embedded.cast;
+    const cast = props.tvShowAndCastData;
+    if (cast.length > 0 ) {
       return cast.map((c: any) => {
         return (
           <CastCard
