@@ -76,8 +76,13 @@ I decided to use styled componentes for this and mostly flex box for arranging t
 All the dimensions of the elements,colors are copied from the CSS on Figma.
 
 
+## Mistakes I left in:
 
-### Notes:
-The seach bar icon was exported from figma as a png, it doesn't seem as high quality as in figma. 
+1. The filtering popup and the search bar has a gap in between when the screen is small. I would need feedback how it should overlap or maybe it should not.
 
-The filtering text has the same css as figma, yet it looks a little different
+2. The cast is missing the gender icons, they looked weird on the top of the images and then I left them off
+
+
+
+## Bonus:
+The UI is tabbable and can be used with a keyboard only.
