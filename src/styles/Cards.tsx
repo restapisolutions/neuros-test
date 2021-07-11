@@ -13,7 +13,7 @@ export const Card = styled.div`
 
 export const CardImage = styled.img`
   width: 180px;
-  height: 160px;
+  height: 157px;
   left: 30px;
   top: 245px;
   background: #c4c4c4;
@@ -21,24 +21,30 @@ export const CardImage = styled.img`
 
 export const CardLabel = styled.div`
   width: 180px;
-  height: 35px;
+  height: 23px;
   left: 30px;
   top: 402px;
   background: #189279;
-  text-align: left;
   padding-botton: 20px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
 
-export const CardLabelContent = styled.p`
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
   line-height: 14px;
   color: #ffffff;
+`;
+
+export const CardLabelContent = styled.div`
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+  text-color: #ffffff;
+  margin-botton: 4px;
+  margin-top: 5px;
+  margin-left: 3px;
 `;
 
 export const DetailsRow = styled.div`

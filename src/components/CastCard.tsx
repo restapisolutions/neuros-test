@@ -3,8 +3,8 @@ import {
   Card,
   CardImage,
   CardLabel,
-  CardLabelContent,
   DetailsRow,
+  CardLabelContent,
 } from "../styles/Cards";
 
 export default function CastCard(props: any) {

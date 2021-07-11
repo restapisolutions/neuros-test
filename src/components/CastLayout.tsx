@@ -8,9 +8,8 @@ const CastContainer = styled.div`
   flex-wrap: wrap;
   justify-content: flex-start;
   align-content: flex-start;
-  margin-left: 15px;
-  margin-right: 15px;
   align-content: center;
+  margin-left: -5px;
 `;
 
 export default function CastLayout(props: any) {
