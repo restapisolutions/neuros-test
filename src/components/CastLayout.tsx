@@ -12,6 +12,10 @@ const CastContainer = styled.div`
   margin-left: -5px;
 `;
 
+const Loading = styled.div`
+  margin: 0 auto;
+`;
+
 export default function CastLayout(props: any) {
   function getCards() {
     const cast = props.tvShowAndCastData;
@@ -30,7 +34,7 @@ export default function CastLayout(props: any) {
         );
       });
     } else {
-      return <p>Loading</p>;
+      return <Loading>Loading</Loading>;
     }
   }
 
