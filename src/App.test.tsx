@@ -28,8 +28,7 @@ test("Basic checking for some of the required elements", () => {
   const updateButton = screen.getByText("Update");
 
   expect(updateButton).toBeInTheDocument();
-  // Im gonna select Pakistan and the expect to not find any Us country
-  // // on the screen
+  // Im gonna select Pakistan 
   const pakistanCheckbox = getById(dom.container, "country4");
   expect(pakistanCheckbox).toBeInTheDocument();
 

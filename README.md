@@ -23,7 +23,7 @@ If I write a Design/UI framework, I prefer to create a separate library and impo
 
 I like simple things. Code should not be over complicated, the most simple approach is usually the best and most performant.
 Generally I prefer to not do too much fancy stuff and a cohesive specification also helps. It's nice to have a spec before and as we iterate on the code, the spec can be adjusted.
-Documentation is also super important, sometimes people think a Spec and a Doc is the same, but they are not. 
+Documentation is also super important. I usually write a lot like you can see here.
 
 
 `Why is testing important, how would you embed it in a team and with what tools?`
@@ -51,7 +51,10 @@ build the app
 
 `npm run build`
 
-The config could be ejected but it's not recommended.
+## Vulnerabilities
+There are Regular Expression Denial of Service and Memory exposure vulnerabilities in the react-scripts dependencies.
+This is a problem and common with React and Webpack. I do admit that a custom config will have a lot less vulnerabilities. If you can pin the exact dependencies.
+Sadly npm audit fix is worthless and it will actually add more high vulnerability bugs if you run it.
 
 
 # Dev notes
@@ -61,12 +64,12 @@ This App implements the specification at https://github.com/Neurons-inc/Neurons-
 It's running here : https://neuros-react.vercel.app/
 
 Created with create-react-app because using the manual setup, babel was compiling <button onClick={()=>{}}></button> onClick as props instead of an event emitter.
-Here is the github repo for the bug, you can see my typecript, jest, webpack and babel config. It works without errors.
+Here is the github repo for the bug, you can see my typecript, jest, webpack and babel config. It works without errors, just the event emitters are not attached.
 https://github.com/restapisolutions/babel-bug-reproduction
 
 I was using the latest versions of Babel and the cause could be the dependencies. Dependencies need to be pinned to a specific version and they only work with a specific combination. The last documentation on React's website about manual setup is from 2018 with pinned dependencies that instantly break with newer ones.
 
-As you can see with this setup,"react-scripts": "4.0.3" , these dependencies need to be pinned and used without a caret ^ symbol otherwise it's a liability.
+As you can see with this setup,"react-scripts": "4.0.3" , these dependencies need to be pinned and used without a caret ^ symbol otherwise it's a liability, preferably to a version without vulnerabilities.
 
 ## State management
 
