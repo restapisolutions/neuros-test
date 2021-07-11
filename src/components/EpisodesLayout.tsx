@@ -8,8 +8,6 @@ const EpisodesContainer = styled.div`
   flex-wrap: wrap;
   justify-content: flex-start;
   align-content: flex-start;
-  margin-left: 15px;
-  margin-right: 15px;
   align-content: center;
 `;
 
@@ -26,6 +24,7 @@ export default function EpisodesLayout(props: any) {
             description={ep.summary}
             season={ep.season}
             airtime={ep.airtime}
+            url={ep.url} 
           ></EpisodesCard>
         );
       });
